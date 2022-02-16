@@ -1,0 +1,20 @@
+#age {
+    position:absolute;
+    top: 200px;
+    left: 50px;
+}
+#week {
+    position:absolute;
+    top: 350px;
+    left: 50px;
+}
+#time {
+    position:absolute;
+    top: 500px;
+    left: 50px;
+}
+#sex {
+    position:absolute;
+    top: 650px;
+    left: 50px;
+}
