@@ -1,0 +1,17 @@
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body{
+    font-family: 'Goyang';
+    text-align: center;
+    width: 1300px;
+    height: 100%;
+}
+
+h1{
+    display: none;
+}

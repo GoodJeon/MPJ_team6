@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = 'https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <link rel="stylesheet" href="{% static 'css/selectgu.css' %}" type="text/css">
+    <script>
+        $( document ).ready( function() {
+            $( 'h1.fi' ).fadeIn(1000, function() {
+                $( this ).css( 'color', 'blue' );
+        } );
+        } );
+    </script>
+    
+</head>
+<body>
+    
+    <h1 class="fi">서울시 행정구를 선택해주세요.</h1>
+    <form action="request/" name="form" method="post">{% csrf_token %}
+        <select name="gu">
+            <option value="구선택">구선택</option>
+            {% for i in guList %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go">
+    </form>
+    <br>
+    <br>
+    <br>
+</body>
+</html>
