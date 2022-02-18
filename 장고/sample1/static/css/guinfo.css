@@ -33,7 +33,6 @@ h1{
     width: 40%;
     height: 100%;
     float:left;
-    background-color: aquamarine;
     box-sizing: border-box;
 }
 
@@ -41,7 +40,6 @@ h1{
     width: 60%;
     height: 100%;
     float: right;
-    background-color: aqua;
     box-sizing: border-box;
 }
 
@@ -57,4 +55,10 @@ h1{
     height: 33.3%;
     float:left;
     border: 1px solid;
+}
+
+.returngu{
+    position: absolute;
+    top: 19px;
+    left: 300px;
 }
