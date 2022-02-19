@@ -1,0 +1,14 @@
+#gutitle {
+    position: absolute;
+    top: 100 px;
+    left: 300 px;
+}
+
+#chart {
+    position: absolute;
+    top : 150px;
+    left : 300px;
+
+    width: 600px;
+    height: 400px;
+}
