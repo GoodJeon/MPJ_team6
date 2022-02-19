@@ -15,3 +15,20 @@ body{
 h1{
     display: none;
 }
+
+#form{
+    display: flex;
+    justify-content: center;
+}
+
+.mapArea{
+    width:300px;
+    height:300px;
+    background: #ffffff;
+}
+#locName{
+    width:100px;
+    height:50px;
+    background:#ffffff;
+    font-weight: bold;
+}

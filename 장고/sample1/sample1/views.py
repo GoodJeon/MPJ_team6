@@ -27,7 +27,7 @@ def selectgu(request):
 
 def get_post(request):
     if request.method == 'POST':
-        gu = request.POST['gu']
+        gu = request.POST.get('gu')
 
         # 생활인구 차트용 데이터 보내기
         tmp = df[df['행정구_명'] == gu]
