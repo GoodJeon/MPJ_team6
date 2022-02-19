@@ -1,14 +1,38 @@
-#gutitle {
-    position: absolute;
-    top: 100 px;
-    left: 300 px;
+@font-face{
+    font-family: 'SDSwaggerTTF';
+    src: url('../font/SDSwaggerTTF.ttf');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 #chart {
     position: absolute;
     top : 150px;
     left : 300px;
+    background-color: white;
 
-    width: 600px;
-    height: 400px;
+    width: 700px;
 }
+body{
+    position: relative;
+    background-color: #B9eeff;
+}
+
+#yourfind {
+    border-radius: 10px;
+    background-color: white;
+    width: 400px;
+    height: 50px;
+    position: absolute;
+    text-align: center;
+    top : 50px;
+    left: 400px;
+}
+#writeplace {
+    font-family : 'SDSwaggerTTF';
+    text-align: center;
+    font-size: 40px;
+}
+
+#whatStore {width:50px;}
