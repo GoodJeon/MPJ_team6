@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function clicks(val){
+            const gu= val.innerText
+            alert(typeof(gu))
+            fetch('http://127.0.0.1:8000/gu/sangkwon/',{
+               method:'POST',
+               body:JSON.stringify({'where':gu}),
+               headers:{'Content-Type':'application/json'}
+           }).then((response) => console.log(response));
+           
+            
+        }
+    </script>
+</head>
+<body>
+    {% csrf_token %}
+    <p onclick="clicks(this)">강남구</p>
+</body>
+</html>
