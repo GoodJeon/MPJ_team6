@@ -1,0 +1,22 @@
+body {
+    text-align: center;
+}
+h1{
+    position: relative;
+}
+#selectgu{
+    width: 200px;
+    height: 50px;
+    font-size: 130%;
+    text-align: center;
+}
+#forimg{
+    margin: auto;
+    text-align: center;
+}
+td{
+    padding: 0px 30px;
+}
+div>p {
+    font-size: 20px;
+}
