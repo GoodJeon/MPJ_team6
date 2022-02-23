@@ -8,14 +8,15 @@
 
 #chart {
     position: absolute;
-    top : 150px;
-    left : 300px;
+    top : 170px;
+    left : 265px;
     background-color: white;
 
-    width: 700px;
+    width: 1000px;
 }
 body{
     position: relative;
+    width: 1350px;
     background-color: #B9eeff;
 }
 
@@ -23,16 +24,42 @@ body{
     border-radius: 10px;
     background-color: white;
     width: 400px;
-    height: 50px;
+    height: 80px;
     position: absolute;
     text-align: center;
     top : 50px;
-    left: 400px;
+    left: 550px;
 }
 #writeplace {
     font-family : 'SDSwaggerTTF';
     text-align: center;
-    font-size: 40px;
+    font-size: 50px;
 }
 
 #whatStore {width:50px;}
+
+#age {
+    position:absolute;
+    top: 160px;
+}
+
+#week {
+    position:absolute;
+    top: 290px;
+}
+
+#time {
+    position:absolute;
+    top: 420px;
+}
+
+#sex {
+    position:absolute;
+    top: 550px;
+}
+
+#another {
+    position:absolute;
+    left :600px;
+}
+
