@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{% static 'css/page2-2.css' %}" type="text/css">
     <script>
     $(function (){
+      $('div > img').css('display', 'none');
+      $('div > img').fadeIn(1000);
       $(":button").css({"background-color": "yellow","border":"1px solid #B9eeff","border-radius":"5px"});
       $("#whatStore").on('click',function(){
         $("#check").click();
@@ -22,9 +24,7 @@
             data : {'gu':gu},
             dataType:"json",
             success: function(msg) {
-                if ($('#DS').hasId('sangcon')===true) {
-                    $('$sangcon').remove();
-                }
+                $('#sangcon').remove();
                 var obj = JSON.parse(msg)
                 var sang = obj.sangG
                 console.log(sang)
@@ -42,7 +42,7 @@
         $.ajax({
           url: '/comeTodata/',
           type:"POST",
-          data: {'gu':$("#guselect option:selected").val()},
+          data: {'gu':$("#guselect option:selected").val(),'sang':$("#sangcon option:selected").val(),'gage':$("#whatStore").val()},
           dataType:'json',
           success: function(msg){
                 alert("별은 바라보는 자에게 빛을 준다\n-드래곤 라자")
@@ -276,8 +276,8 @@
                 })
 
           }
-          ,error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          ,error:function(){
+            alert('현재 입력하신 상권에는 찾는 업종이 없습니다. 선발대가 되보실래요?');
           }
         })
       });
@@ -308,7 +308,7 @@
             {% endfor %}
         </div>
         </select>
-        <input type="text" id='whatStore' readonly="readonly" value="{{stname}}"/>
+        <input type="text" id='whatStore' readonly="readonly"/>
         <input type="button" value="업종입력" id="check"/>
         <input type="button" value="상가 확인" id="gogo">
         <div id="yourfind">
