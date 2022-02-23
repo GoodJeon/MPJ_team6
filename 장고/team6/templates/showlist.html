@@ -25,18 +25,18 @@
                 for (var j=0; j< list[i].length; j++){
                     var val = list[i][j]
                     var td =document.createElement('td');
-                    td.setAttribute('onclick','click(\"'+list[i][j]+'\")');
-                    td.setAttribute('value',list[i][j]);
+                    td.setAttribute('onclick','sendChildValue(this.innerText)');
+                    td.setAttribute('onmouseover','this.style.background="skyblue",this.style.cursor="pointer"');
+                    td.setAttribute('onmouseout','this.style.background="white"')
                     tr.appendChild(td);
                     td.innerHTML = list[i][j];
                 }
             }
         }
-        function click(val) {
-            opener.document.getElementById("whatStore")[0].value=val;
-            close();
+        function sendChildValue(name) {
+            opener.setChildValue(name);
+            window.close();
         }
-
 
 
     </script>
