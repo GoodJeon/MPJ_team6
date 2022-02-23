@@ -51,39 +51,50 @@
             text-align: center;
         }
     </style>
+    <script>
+        function click1(){
+            var element=document.forms['frm']['bt']
+            element.setAttribute('value',1)
+            frm.action="/gu/"
+            frm.submit()
+        }
+        function click2(){
+            var element=document.forms['frm']['bt']
+            element.setAttribute('value',2)
+            frm.action="/gu/"
+            frm.submit()
+        }
+    </script>
 </head>
 <body>
     <div class="title">
         <h1>우리 상권 분석</h1>
     </div>
-
-    <div class="main">
-        <div class="m-bt1">
-            <div class="p-bt1">
-                <a href="/gu">
+    <form method="post" name="frm">
+        <div class="main">
+            <div class="m-bt1">
+                <div class="p-bt1" onclick="click1()">
                     <div class="image">
                         <img src="{% static 'img/인구.jpg' %}" alt="">
                     </div>
                     <div class="txt">
                         <p>우리 사람 누구 있지?</p>
                     </div>
-                </a>
+                </div>
             </div>
-        </div>
 
-        <div class="m-bt2">
-            <div class="p-bt2">
-                <a href="/gu">
+            <div class="m-bt2">
+                <div class="p-bt2" onclick="click2()">
                     <div class="image">
                         <img src="{% static 'img/상권.jpg' %}" alt="">
                     </div>
                     <div class="txt">
                         <p>우리 상권 뭐 있지?</p>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
-    </div>
-    
+        <input type="text" name="bt" value="" style="display: none;">
+    </form>
 </body>
 </html>

@@ -16,12 +16,12 @@
             text-align: center;
         }
         .main{
-            height: 500px;
-            margin-top: 100px;
+            height: 550px;
+            margin-top: 50px;
         }
         .chart{
-            margin-left: 10%;
-            margin-right: 10%;
+            margin-left: 5%;
+            margin-right: 5%;
             height: 99%;
         }
         table{
@@ -38,28 +38,54 @@
     <script>
         //hover 색변환, 누르면 해당 이름 send하면서 다음 페이지
         function clicks(val){
-            alert(val.innerText)
+            var data=val.innerText
+            if (data!=''){
+                var element=document.forms['frm']['wheresk']
+                element.setAttribute('value',data)
+                //여기서 bt if문으로 빼자
+                if ('{{bt}}'==1){
+                    frm.action='/gu/sangkwon/pop_info/'
+                    frm.submit()
+                }else{
+                    frm.action='/gu/sangkwon/pop_info/'
+                    frm.submit()
+                }
+            }
+        }
+
+        function mouseon(val){
+            if (val.innerText!=''){
+                val.style.background='blue'
+            }
+        }
+        function mouseout(val){
+            val.style.background='white'
         }
     </script>
 </head>
 <body>
    <div class="title">
-        <h1>상권 선택</h1>
+        <h1>{{gu}} 상권 선택</h1>
    </div>
-   <div class="main">
-        <div class="chart">
-            <table>
-                {% for i in h|ranges %}
-                <tr>
-                    {% for j in v|ranges %}
-                    <td onclick="clicks(this)" onmouseover="this.style.background='blue'" onmouseout="this.style.background='white'">
-                        {% pick_data sklist v i j %}
-                    </td>
+   <form method="post" name="frm">
+        <div class="main">
+            <div class="chart">
+                <table>
+                    {% for i in v|ranges %}
+                    <tr>
+                        {% for j in h|ranges %}
+                        <td onclick="clicks(this)" onmouseover="mouseon(this)" onmouseout="mouseout(this)">
+                            {% pick_data sklist h i j %}
+                        </td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
         </div>
-   </div>
+        <input type="text" name="wheregu" value="{{wheregu}}" style="display:none">
+        <input type="text" name="bt" value="{{bt}}" style="display:none">
+        <input type="text" name="wheresk" value="" style="display:none">
+    </form>
 </body>
 </html>
