@@ -44,9 +44,17 @@ def showlist(request):
 def comeTodata(request):
     if 'gu' in request.POST:
         gu = request.POST['gu']
-    gud = moneymoney[moneymoney['행정구_명']== gu ]
+        sang = request.POST['sang']
+        gage = request.POST['gage']
+    print(gu)
+    selGu=moneymoney[moneymoney['행정구_명']== gu]
+    print(sang,gage)
+
+    gud = selGu[(selGu['상권_코드_명']== sang)&(selGu['서비스_업종_코드_명']== gage)]
+    # print(gud)
     # 성별 퍼센트 데이터 보내기
     male = (gud['남성_매출_금액'].sum())
+    print(male)
     female = (gud['여성_매출_금액'].sum())
     m = int(male)
     f = int(female)
