@@ -15,6 +15,29 @@
       $("#whatStore").on('click',function(){
         $("#check").click();
       })
+      $("#guselect").change(function() {
+        var gu = $(this).val();
+        $.ajax({
+            url:'/guSang/',
+            data : {'gu':gu},
+            dataType:"json",
+            success: function(msg) {
+                if ($('#DS').hasId('sangcon')===true) {
+                    $('$sangcon').remove();
+                }
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text('상권코드선택'));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+            }
+        });
+      });
+
       $('#gogo').on('click', function() {
         $.ajax({
           url: '/comeTodata/',
@@ -267,19 +290,25 @@
             open("/showlist/",'','width=700px,height=665px');
       })
     })
+
+    function setChildValue(name){
+        document.getElementById('whatStore').value=name;
+    }
    </script>
    
 
 </head>
 <body>
     <form>
-        <select id="guselect">
-        <option value="구선택">구선택</option>
-        {% for i in guList %}
-            <option id='guname' value="{{i}}">{{i}}</option>
-        {% endfor %}
+        <div id="DS">
+            <select id="guselect">
+            <option value="구선택">구선택</option>
+            {% for i in guList %}
+                <option id='guname' value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </div>
         </select>
-        <input type="text" id='whatStore' readonly="readonly"/>
+        <input type="text" id='whatStore' readonly="readonly" value="{{stname}}"/>
         <input type="button" value="업종입력" id="check"/>
         <input type="button" value="상가 확인" id="gogo">
         <div id="yourfind">
