@@ -12,7 +12,7 @@ import csv
 sp = pd.read_csv('./data/spYear.csv', encoding='utf-8')
 df = pd.DataFrame(sp)
 del df['Unnamed: 0']
-
+moneymoney = pd.read_csv("./data/moneypower.csv")
 
 def index(request):
     return render(request,'index.html')
@@ -26,6 +26,16 @@ def storepage(request):
         '금천구', '영등포구', '동작구', '관악구',
         '서초구', '강남구', '송파구', '강동구']
     return render(request,'페이지2-2.html', {'guList': list})
+
+def guSang(request):
+    guCode = request.GET['gu']
+    guCo= moneymoney[moneymoney['행정구_명']==guCode]
+    sang= guCo['상권_코드_명'].unique();
+    itsang={'sangG':sang}
+    itsang=(json.dumps(itsang, cls=NumpyEncoder, indent=4, ensure_ascii=False))
+    return JsonResponse(itsang,safe=False)
+
+
 def showlist(request):
     return render(request,'showlist.html')
 
@@ -34,7 +44,6 @@ def showlist(request):
 def comeTodata(request):
     if 'gu' in request.POST:
         gu = request.POST['gu']
-    moneymoney = pd.read_csv("./data/moneypower.csv")
     gud = moneymoney[moneymoney['행정구_명']== gu ]
     # 성별 퍼센트 데이터 보내기
     male = (gud['남성_매출_금액'].sum())
