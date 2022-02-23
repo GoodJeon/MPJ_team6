@@ -7,12 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src = 'https://code.jquery.com/jquery-3.6.0.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@0.2.3"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/treemap.js"></script>
+    <script src="http://code.highcharts.com/modules/heatmap.js"></script>
     <link rel="stylesheet" href="{% static 'css/guinfo.css' %}" type="text/css">
     <script>
         $( document ).ready( function() {
-            $( 'body' ).fadeIn(1000)})
-        
+            $( 'body' ).fadeIn(1000)
+            })
+
     </script>
 </head>
 <body>
@@ -25,9 +30,8 @@
     <div class="lf">
         <div class="left">
             <div class="popul">
-                <div>분기 별 생활인구</div>
                 <div>
-                    <canvas class="my-4" id="myChart1" width="900" height="380"></canvas>
+                    <div class="my-4" id="myChart1" width="900" height="380"></div>
                 </div>
             </div>
             <div class="sex">
@@ -86,30 +90,74 @@
         var t4 = ('{{ t4 | join:',' }}').split(',')
         var t5 = ('{{ t5 | join:',' }}').split(',')
         var t6 = ('{{ t6 | join:',' }}').split(',')
+        var sknames = ('{{ sknames | join:',' }}').split(',')
+        var skvalues = ('{{ skvalues | join:',' }}').split(',')
+        var treemapData = []
+        for(var i=0; i<sknames.length; i++) {
+            var dict = {
+            name: sknames[i],
+            value: parseInt(skvalues[i]),
+            colorValue: parseInt(skvalues[i])}
+            treemapData.push(dict)
+        }
+
+        
+
+
+
+
 
         // 차트 그리는 곳
+
         // 첫 번째 차트
-        var ctx1 = document.getElementById("myChart1");
-        var myChart = new Chart(ctx1, {
-          type: 'doughnut',
-          data: {
-            labels: ["2020년 4분기","2021년 1분기","2021년 2분기","2021년 3분기"],
-            datasets: [{
-              label: '분기 별 인구 수',
-              data: [ingu[3], ingu[0], ingu[1], ingu[2]],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)'
-              ],
-              hoverOffset: 4
-            }]
-          }
-        })
+        // var ctx1 = document.getElementById("myChart1");
+        // var myChart = new Chart(ctx1, {
+        //   type: 'doughnut',
+        //   data: {
+        //     labels: ["2020년 4분기","2021년 1분기","2021년 2분기","2021년 3분기"],
+        //     datasets: [{
+        //       label: '분기 별 인구 수',
+        //       data: [ingu[3], ingu[0], ingu[1], ingu[2]],
+        //       backgroundColor: [
+        //         'rgba(255, 99, 132, 0.2)',
+        //         'rgba(255, 205, 86, 0.2)',
+        //         'rgba(75, 192, 192, 0.2)',
+        //         'rgba(54, 162, 235, 0.2)'
+        //       ],
+        //       hoverOffset: 4
+        //     }]
+        //   }
+        // })
+        
+        
+        
+        // 첫번째 차트
+        $(document).ready(function() {    
+          var title = {
+              text: '연 평균 생활인구'   
+          };       
+        
+          var colorAxis = {
+              minColor: '#FFFFFF',
+              maxColor: Highcharts.getOptions().colors[3]
+          };
+          
+          var series= [{
+            type: "treemap",
+            layoutAlgorithm: 'squarified',
+            data: treemapData
+          }];     
+              
+          var json = {};     
+          json.title = title;          
+          json.colorAxis = colorAxis;   
+          json.series = series;       
+          
+          $('#myChart1').highcharts(json);
+        });
         
         // 두 번째 차트
-        var ctx2 = document.getElementById("myChart2");
+        var ctx2 = document.getElementById("myChart2").getContext("2d");
         var myChart = new Chart(ctx2, {
           type: 'pie',
           data: {
@@ -124,6 +172,7 @@
             }]
           },
         })
+        
         
         // 세 번째 차트
         var ctx3 = document.getElementById("myChart3");
@@ -294,6 +343,10 @@
             }]
           },
         })
+
+
+        
+        
 
       </script>
 </body>

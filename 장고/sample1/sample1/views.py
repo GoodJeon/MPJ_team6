@@ -66,12 +66,17 @@ def get_post(request):
         t5 = tmp['시간대_5_생활인구_수'].groupby(tmp['기준_분기_코드']).sum().values
         t6 = tmp['시간대_6_생활인구_수'].groupby(tmp['기준_분기_코드']).sum().values
 
+        # 트리맵에 넣을 데이터 만들기(평균 인구 수)
+        sknames = list(tmp['총_생활인구_수'].groupby(tmp['상권_코드_명']).mean().index)
+        skvalues = list(map(int,tmp['총_생활인구_수'].groupby(tmp['상권_코드_명']).mean().values))
+
+
 
         return render(request, 'guinfo.html', 
         {'gu':gu,'ingu':ingu, 
         'm':mPer, 'f':fPer,
         'mon':mon,'tue':tue,'wed':wed,'thu':thu,'fri':fri,'sat':sat,'sun':sun,
         'age10':age10,'age20':age20,'age30':age30,'age40':age40,'age50':age50,'age60':age60,
-        't1':t1,'t2':t2,'t3':t3,'t4':t4,'t5':t5,'t6':t6})
+        't1':t1,'t2':t2,'t3':t3,'t4':t4,'t5':t5,'t6':t6, 'sknames':sknames, 'skvalues':skvalues})
     else:
         return redirect('selectgu')
