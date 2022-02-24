@@ -9,17 +9,17 @@
 #chart {
     position: absolute;
     top : 170px;
-    left : 265px;
+    left : 280px;
     background-color: white;
 
-    width: 1000px;
+    width: 12
+    00px;
 }
 body{
     position: relative;
     width: 1350px;
     background-color: #B9eeff;
 }
-
 #yourfind {
     border-radius: 10px;
     background-color: white;
@@ -33,10 +33,17 @@ body{
 #writeplace {
     font-family : 'SDSwaggerTTF';
     text-align: center;
-    font-size: 50px;
+    font-size: 30px;
+    line-height: 100px;
 }
 
-#whatStore {width:50px;}
+#whatStore {
+    position:absolute;
+    left:10px;
+    top: 50px;
+    width:150px;
+    height:40px;
+}
 
 #age {
     position:absolute;
@@ -58,8 +65,53 @@ body{
     top: 550px;
 }
 
-#another {
+#jumposu {
     position:absolute;
-    left :600px;
+    top: 680px;
 }
 
+#another {
+    position:absolute;
+    left :1300px;
+    width : 200px;
+    height : 50px;
+    font-size: large;
+
+}
+
+#guselect {
+     position:absolute;
+     left: 10px;
+     border-radius:3px;
+     top: 5px;
+     width:100px;
+     height: 40px;
+}
+#sangcon {
+    position:absolute;
+    border-radius:3px;
+    top:5px;
+    left : 120px;
+    height: 40px;
+}
+
+#check {
+    position:absolute;
+    top:48px;
+    left: 175px;
+    width: 90px;
+    height : 50px;
+    font-size: large;
+
+}
+
+#gogo {
+    position:absolute;
+    top: 105px;
+    left: 40px;
+    width : 165px;
+    height: 50px;
+    font-size: large;
+
+
+}
