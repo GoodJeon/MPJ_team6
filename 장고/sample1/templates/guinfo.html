@@ -14,8 +14,16 @@
     <script src="http://code.highcharts.com/modules/heatmap.js"></script>
     <link rel="stylesheet" href="{% static 'css/guinfo.css' %}" type="text/css">
     <script>
-        $( document ).ready( function() {
-            $( 'body' ).fadeIn(1000)
+        $( document ).ready(function() {
+            $( 'body' ).fadeIn(2000)
+            if (mpop > fpop){
+              $('.manimg').attr('src','{% static "images/male2.png" %}').stop(true,true).hide().fadeIn(4000)
+            } else if (mpop < fpop){
+              $('.womanimg').attr('src','{% static "images/female2.png" %}').stop(true,true).hide().fadeIn(4000)
+            } else {
+              $('.manimg').attr('src','{% static "images/male2.png" %}').stop(true,true).hide().fadeIn(4000)
+              $('.womanimg').attr('src','{% static "images/female2.png" %}').stop(true,true).hide().fadeIn(4000)
+            }
             })
 
     </script>
@@ -31,31 +39,55 @@
         <div class="left">
             <div class="popul">
                 <div>
-                    <div class="my-4" id="myChart1" width="900" height="380"></div>
+                    <div class="my-4" id="myChart1" style='width:100%; height: 100%;'></div>
                 </div>
             </div>
             <div class="sex">
-              <div>생활인구 성별 비율</div>
-              <div>
-                  <canvas class="my-4" id="myChart2" width="900" height="380"></canvas>
+              <div class="sex_title">🚹성별에 따른 생활 인구🚺</div>
+              <div class="sex_content">
+                  <!-- <canvas class="my-4" id="myChart2" width="900" height="380"></canvas> -->
+                  <div class="male">
+                    <div class="m_left">
+                      <img class='manimg' src="{% static 'images/male1.png' %}" width="100%" height="250">
+                    </div>
+                    <div class="m_right">
+                      <span class="man_title"><strong>남성</strong></span>
+                      <span><b>1년 생활인구 수</b></span>
+                      <span>{{mpop}} 명</span>
+                      <span><b>비율</b></span>
+                      <span>{{m}}%</span>
+                    </div>
+                  </div>
+                  <div class="female">
+                    <div class="f_left">
+                      <img class='womanimg'src="{% static 'images/female1.png' %}" width="100%" height="250">
+                    </div>
+                    <div class="f_right">
+                      <span class="woman_title"><strong>여성</strong></span>
+                      <span><b>1년 생활인구 수</b></span>
+                      <span>{{fpop}} 명</span>
+                      <span><b>비율</b></span>
+                      <span>{{f}}%</span>
+                    </div>
+                  </div>
               </div>
             </div>
         </div>
         <div class="right">
             <div class="day">
-              <div>요일 별 생활인구 수</div>
+              <div>요일 별 생활인구 수📆</div>
               <div>
                 <canvas class="my-4" id="myChart3" width="900" height="180"></canvas>
               </div>
             </div>
             <div class="age">
-              <div>나이 별 생활인구 수</div>
+              <div>나이 별 생활인구 수🖐</div>
               <div>
                 <canvas class="my-4" id="myChart4" width="900" height="180"></canvas>
               </div>
             </div>
             <div class="time">
-              <div>시간대 별 생활인구 수</div>
+              <div>시간대 별 생활인구 수⏰</div>
               <div>
                 <canvas class="my-4" id="myChart5" width="900" height="180"></canvas>
               </div>
@@ -71,6 +103,8 @@
         var ingu = ('{{ ingu | join:',' }}').split(',')
         var m = parseInt('{{ m }}')
         var f = parseInt('{{ f }}')
+        var mpop = parseInt('{{mpop}}')
+        var fpop = parseInt('{{fpop}}')
         var mon = ('{{ mon | join:',' }}').split(',')
         var tue = ('{{ tue | join:',' }}').split(',')
         var wed = ('{{ wed | join:',' }}').split(',')
@@ -133,45 +167,46 @@
         
         // 첫번째 차트
         $(document).ready(function() {    
-          var title = {
-              text: '연 평균 생활인구'   
-          };       
+          Highcharts.chart('myChart1', {
+              chart: {
+                height: 275
+              },
+              colorAxis: {
+                  minColor: '#FFFFFF',
+                  maxColor: Highcharts.getOptions().colors[3]
+              },
+              series: [{
+                  type: 'treemap',
+                  layoutAlgorithm: 'squarified',
+                  data: treemapData
+              }],
+              title: {
+                  text: '상권별 연 평균 인구수'
+              }
+          });
+                
         
-          var colorAxis = {
-              minColor: '#FFFFFF',
-              maxColor: Highcharts.getOptions().colors[3]
-          };
+
+        
           
-          var series= [{
-            type: "treemap",
-            layoutAlgorithm: 'squarified',
-            data: treemapData
-          }];     
-              
-          var json = {};     
-          json.title = title;          
-          json.colorAxis = colorAxis;   
-          json.series = series;       
-          
-          $('#myChart1').highcharts(json);
         });
         
-        // 두 번째 차트
-        var ctx2 = document.getElementById("myChart2").getContext("2d");
-        var myChart = new Chart(ctx2, {
-          type: 'pie',
-          data: {
-            labels: ["남성 비율", "여성 비율"],
-            datasets: [{
-              label: '생활인구 성별 비율(%)',
-              data: [m, f],
-              backgroundColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 99, 132, 1)'
-              ],
-            }]
-          },
-        })
+        // // 두 번째 차트
+        // var ctx2 = document.getElementById("myChart2").getContext("2d");
+        // var myChart = new Chart(ctx2, {
+        //   type: 'pie',
+        //   data: {
+        //     labels: ["남성 비율", "여성 비율"],
+        //     datasets: [{
+        //       label: '생활인구 성별 비율(%)',
+        //       data: [m, f],
+        //       backgroundColor: [
+        //         'rgba(54, 162, 235, 1)',
+        //         'rgba(255, 99, 132, 1)'
+        //       ],
+        //     }]
+        //   },
+        // })
         
         
         // 세 번째 차트

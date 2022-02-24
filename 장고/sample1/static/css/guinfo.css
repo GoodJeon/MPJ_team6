@@ -5,8 +5,9 @@
     font-style: normal;
 
 
-
 }
+
+
 body{
     font-family: 'Goyang';
     text-align: center;
@@ -20,10 +21,9 @@ h1{
     padding-left: 20px;
 }
 
-
 .lf{
     width: 100%;
-    height: 550px;
+    height: 550;
     border: 1px solid;
 
 }
@@ -63,7 +63,60 @@ h1{
     left: 300px;
 }
 
-.popul{
+
+.sex{
     width: 100%;
-    height: 100%;
+    height: 275;
+}
+.sex_title{
+    width:100%;
+    height:25px;
+}
+
+.sex_content{
+    width:100%;
+    height:250px;
+}
+.male{
+    width:50%;
+    height: 250px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.female{
+    width:50%;
+    height:250px;
+    box-sizing: border-box;
+    float: right;
+}
+
+.m_left{
+    width:60%;
+    height:250px;
+    box-sizing: border-box;
+    float: left;
+}
+.f_left{
+    width:60%;
+    height:250px;
+    box-sizing: border-box;
+    float:left;
+}
+
+.m_right{
+    width:40%;
+    height:250px;
+    box-sizing: border-box;
+    float:left;
+}
+.f_right{
+    width:40%;
+    height:250px;
+    box-sizing: border-box;
+    float: left;
+}
+
+span{
+    display: block;
 }

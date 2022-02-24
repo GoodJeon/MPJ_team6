@@ -74,7 +74,7 @@ def get_post(request):
 
         return render(request, 'guinfo.html', 
         {'gu':gu,'ingu':ingu, 
-        'm':mPer, 'f':fPer,
+        'm':mPer, 'f':fPer, 'mpop':m, 'fpop':f,
         'mon':mon,'tue':tue,'wed':wed,'thu':thu,'fri':fri,'sat':sat,'sun':sun,
         'age10':age10,'age20':age20,'age30':age30,'age40':age40,'age50':age50,'age60':age60,
         't1':t1,'t2':t2,'t3':t3,'t4':t4,'t5':t5,'t6':t6, 'sknames':sknames, 'skvalues':skvalues})
