@@ -51,6 +51,8 @@
                 //json 바꾸기 위해 parse
                 var obj = JSON.parse(msg)
                 var gu = obj.gu
+                var sang = obj.sang
+                var gage = obj.gage
                 var m = obj.m
                 var f = obj.f
                 var mon = obj.mon
@@ -72,7 +74,8 @@
                 var t4 = obj.t4
                 var t5 = obj.t5
                 var t6 = obj.t6
-                $('#writeplace').html(gu)
+                var jumpo = obj.jumpo
+                $('#writeplace').html(gu+sang+gage)
                 $('#gu').val(gu)
 
 
@@ -274,6 +277,22 @@
                       },
                     })
                 })
+                $('#jumposu').on('click',function(){
+                $("#showChart").remove();
+                $("#chart").append("<canvas id='showChart'></canvas>");
+                var ctx6 = document.getElementById("showChart");
+                var myChart = new Chart(ctx6, {
+                  type: 'line',
+                  data: {
+                    labels: ['2020년 4분기','2021년 1분기','2021년 2분기','2021년 3분기' ],
+                    datasets: [{
+                      label: '분기별점포수 변동',
+                      data: [jumpo[3],jumpo[0],jumpo[1],jumpo[2]],
+                      borderColor: 'rgb(75, 192, 192)',
+                        }]
+                      }
+                    })
+                })
 
           }
           ,error:function(){
@@ -325,6 +344,9 @@
         </div>
         <div id="sex">
           <img src="{% static 'images/sex.png' %}" width="250px" height="110px">
+        </div>
+        <div id="jumposu">
+            <img src="{% static 'images/jumpo.png' %}" width="250px" height="110px">
         </div>
 
         <div id="chart">
