@@ -70,7 +70,7 @@ def comeTodata(request):
     sat = gud['토요일_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
     sun = gud['일요일_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
 
-
+    jumpo = gud['점포수'].groupby(gud['기준_분기_코드']).sum().values
 
     # 분기 별, 연령대별 총 생활인구 수
     age10 = gud['연령대_10_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
@@ -90,8 +90,8 @@ def comeTodata(request):
     t6 = gud['시간대_21~24_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
 
 
-
-    result = {'gu': gu, 'm': mPer, 'f': fPer,'mon': mon, 'tue': tue, 'wed': wed, 'thu': thu, 'fri': fri, 'sat': sat, 'sun': sun,'age10': age10, 'age20': age20, 'age30': age30, 'age40': age40, 'age50': age50, 'age60': age60,'t1': t1, 't2': t2, 't3': t3, 't4': t4, 't5': t5, 't6': t6}
+    print(jumpo)
+    result = {'gu': gu,'sang':sang,'gage':gage, 'm': mPer, 'f': fPer,'mon': mon, 'tue': tue, 'wed': wed, 'thu': thu, 'fri': fri, 'sat': sat, 'sun': sun,'age10': age10, 'age20': age20, 'age30': age30, 'age40': age40, 'age50': age50, 'age60': age60,'t1': t1, 't2': t2, 't3': t3, 't4': t4, 't5': t5, 't6': t6, 'jumpo':jumpo}
     result =(json.dumps(result, cls=NumpyEncoder, indent=4, ensure_ascii=False))
     return JsonResponse(result,safe=False)
 #result에서 그냥 하면 오류나와서 narry형식 변환해줘야합니다(json.dumps(result, cls=NumpyEncoder, indent=4, ensure_ascii=False))
