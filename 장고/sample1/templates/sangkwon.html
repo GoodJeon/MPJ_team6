@@ -1,0 +1,81 @@
+{% load static %}
+{% load makechart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/sangkwon.css' %}" type="text/css">
+    <script>
+        //hover 색변환, 누르면 해당 이름 send하면서 다음 페이지
+        function clicks(val){
+            var data=val.innerText
+            if (data!=''){
+                var element=document.forms['frm']['wheresk']
+                element.setAttribute('value',data)
+                //여기서 bt if문으로 빼자
+                if ('{{bt}}'==1){
+                    frm.action='/gu/sangkwon/pop_info/'
+                    frm.submit()
+                }else{
+                    frm.action='/storepage/'
+                    frm.submit()
+                }
+            }
+        }
+
+        function mouseon(val){
+            if (val.innerText!=''){
+                val.style.background='#999999'
+            }
+        }
+        function mouseout(val){
+            val.style.background='white'
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>{{gu}} 상권 선택</h1>
+    </header>
+    <main>
+        <form method="post" name="frm">
+            <div class="main">
+                <div class="chart">
+                    <table>
+                        {% for i in v|ranges %}
+                        <tr>
+                            {% for j in h|ranges %}
+                            <td class='w-btn-neon2' onclick="clicks(this)" >
+                                {% pick_data sklist h i j %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <input type="text" name="wheregu" value="{{wheregu}}" style="display:none">
+            <input type="text" name="bt" value="{{bt}}" style="display:none">
+            <input type="text" name="wheresk" value="" style="display:none">
+        </form>
+    </main>
+    <footer>
+        <span>
+            <b>
+            Copyright ⓒ 2022. OB상조 All rights reserved   
+            </b>
+        </span>
+        <span>
+            <b>Designed by 김화신 이성길 이종호 전동준 조완제  </b>
+        </span>
+        <span>
+            <b>
+            Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+            </b> 
+        </span>
+    </footer>
+</body>
+</html>

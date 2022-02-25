@@ -7,17 +7,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+    <script>
+        
+
+        function click1(){
+            var element=document.forms['frm']['bt']
+            element.setAttribute('value',1)
+            frm.action="/gu/"
+            frm.submit()
+        }
+        function click2(){
+            var element=document.forms['frm']['bt']
+            element.setAttribute('value',2)
+            frm.action="/gu/"
+            frm.submit()
+        }
+    </script>
 </head>
 <body>
-    
-    <h1>서울시에 창업을 생각하시나요?</h1>
-    <h2>지금 상권분석을 경험해보세요!</h2>
-    <br>
-    <br>
-    <a href="/selectgu">
-        <img src="{% static 'images/상권분석.png' %}" width="300px" height="300px">
-    </a>
-    
-    
+    <header>
+        <h1>우리 상권 분석</h1>
+    </header>
+    <main>
+        <form method="post" name="frm">
+                <div class="m-bt1">
+                    <div class="p-bt1" onclick="click1()">
+                        <div class="image">
+                            <img src="{% static 'img/인구.jpg' %}" alt="">
+                        </div>
+                        <div class="txt">
+                            <p>우리 사람 누구 있지?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-bt2">
+                    <div class="p-bt2" onclick="click2()">
+                        <div class="image">
+                            <img src="{% static 'img/상권.jpg' %}" alt="">
+                        </div>
+                        <div class="txt">
+                            <p>우리 상권 뭐 있지?</p>
+                        </div>
+                    </div>
+                </div>
+            <input type="text" name="bt" value="" style="display: none;">
+        </form>
+    </main>
+    <footer>
+        <span>
+            <b>
+            Copyright ⓒ 2022. OB상조 All rights reserved   
+            </b>
+        </span>
+        <span>
+            <b>Designed by 김화신 이성길 이종호 전동준 조완제  </b>
+        </span>
+        <span>
+            <b>
+            Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+            </b> 
+        </span>
+    </footer>
 </body>
 </html>

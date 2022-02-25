@@ -1,0 +1,452 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/sk_info.css' %}" type="text/css">
+    <script>
+
+
+    // 기존 받은 데이터 나옴 
+    $( document ).ready(function() {
+      $("#guselect").val("{{wheregu}}").attr("selected", "selected")
+      var wheregu = $("#guselect").val()
+      $('#wheregu').attr('value',wheregu);
+      
+      
+
+      
+
+      $.ajax({
+            url:'/guSang/',
+            data : {'gu':$("#guselect option:selected").val()},
+            dataType:"json",
+            success: function(msg) {
+                // $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(wheresk).text(wheresk));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+                $("#sangcon").val("{{wheresk}}").attr("selected", "selected")
+                var wheresk = $("#sangcon").val()
+                $('#wheresk').attr('value',wheresk);
+                $('#sangcon').change(function(){
+                  var wheresk=$(this).val()
+                  alert(wheresk)
+                  $('#wheresk').attr('value',wheresk); 
+                })
+            }
+        })
+
+        
+    })
+
+    // 
+    $(function (){
+      $('div > img').css('display', 'none');
+      $('div > img').fadeIn(1000);
+      $(":button").css({"background-color": "yellow","border":"1px solid #B9eeff","border-radius":"5px"});
+
+      // 
+      $("#guselect").change(function() {
+        var gu = $(this).val();
+        $.ajax({
+            url:'/guSang/',
+            data : {'gu':gu},
+            dataType:"json",
+            success: function(msg) {
+                $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text('상권코드선택'));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+                var wheregu = $("#guselect").val()
+                
+            }
+        });
+      });
+
+      $('#gogo').on('click', function() {
+        $.ajax({
+          url: '/comeTodata/',
+          type:"POST",
+          data: {'gu':$("#guselect option:selected").val(),'sang':$("#sangcon option:selected").val(),'gage':$("#whatStore").val()},
+          dataType:'json',
+          success: function(msg){
+                alert("별은 바라보는 자에게 빛을 준다\n-드래곤 라자")
+                //받은 내용 확인 console
+                // console.log(msg)
+                //json 바꾸기 위해 parse
+                var obj = JSON.parse(msg)
+                var gu = obj.gu
+                var sang = obj.sang
+                var gage = obj.gage
+                var m = obj.m
+                var f = obj.f
+                var mon = obj.mon
+                var tue = obj.tue
+                var wed = obj.wed
+                var thu = obj.thu
+                var fri = obj.fri
+                var sat = obj.sat
+                var sun = obj.sun
+                var age10 = obj.age10
+                var age20 = obj.age20
+                var age30 = obj.age30
+                var age40 = obj.age40
+                var age50 = obj.age50
+                var age60 = obj.age60
+                var t1 = obj.t1
+                var t2 = obj.t2
+                var t3 = obj.t3
+                var t4 = obj.t4
+                var t5 = obj.t5
+                var t6 = obj.t6
+                var jumpo = obj.jumpo
+                $('#writeplace').html(gu+' '+sang+' '+gage)
+                $('#writeplace2').html('해당 상권은')
+                $('#gu').val(gu)
+                var wheresk = $("#sangcon").val()
+                
+
+
+                $('#age').on('click',function(){
+                    $("#showChart").remove();
+                    $("#chart").append("<canvas id='showChart'></canvas>");
+                    var ctx4 = document.getElementById("showChart");
+                    var myChart = new Chart(ctx4, {
+                      type: 'bar',
+                      data: {
+                        labels: ["10대", "20대","30대","40대","50대","60대이상"],
+                        datasets: [{
+                          label: '2020년 4분기',
+                          data: [age10[3],age20[3],age30[3],age40[3],age50[3],age60[3]],
+                          backgroundColor: [
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+                            'rgba(255, 0, 0, 0.5)',
+
+                          ],
+                        }, {
+                          label: '2021년 1분기',
+                          data: [age10[0],age20[0],age30[0],age40[0],age50[0],age60[0]],
+                          backgroundColor: [
+                            'rgba(200, 0, 0, 0.5)',
+                            'rgba(200, 0, 0, 0.5)',
+                            'rgba(200, 0, 0, 0.5)',
+                            'rgba(200, 0, 0, 0.5)',
+                            'rgba(200, 0, 0, 0.5)',
+                            'rgba(200, 0, 0, 0.5)'
+                          ],
+                        }, {
+                          label: '2021년 2분기',
+                          data: [age10[1],age20[1],age30[1],age40[1],age50[1],age60[1]],
+                          backgroundColor: [
+                            'rgba(150, 0, 0, 0.5)',
+                            'rgba(150, 0, 0, 0.5)',
+                            'rgba(150, 0, 0, 0.5)',
+                            'rgba(150, 0, 0, 0.5)',
+                            'rgba(150, 0, 0, 0.5)',
+                            'rgba(150, 0, 0, 0.5)'
+                          ],
+                        }, {
+                          label: '2021년 3분기',
+                          data: [age10[2],age20[2],age30[2],age40[2],age50[2],age60[2]],
+                          backgroundColor: [
+                            'rgba(100, 0, 0, 0.5)',
+                            'rgba(100, 0, 0, 0.5)',
+                            'rgba(100, 0, 0, 0.5)',
+                            'rgba(100, 0, 0, 0.5)',
+                            'rgba(100, 0, 0, 0.5)',
+                            'rgba(100, 0, 0, 0.5)'
+                          ],
+                        }]
+                      },
+                    })
+
+                })
+                $('#week').on('click',function(){
+                    $("#showChart").remove();
+                    $("#chart").append("<canvas id='showChart'></canvas>");
+                    var ctx3 = document.getElementById("showChart");
+                        var myChart = new Chart(ctx3, {
+                          type: 'bar',
+                          data: {
+                            labels: ["월", "화","수","목","금","토","일"],
+                            datasets: [{
+                              label: '2020년 4분기',
+                              data: [mon[3], tue[3],wed[3],thu[3],fri[3],sat[3],sun[3]],
+                              backgroundColor: [
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)',
+                                'rgba(255, 0, 255, 0.5)'
+
+                              ],
+                            }, {
+                              label: '2021년 1분기',
+                              data: [mon[0], tue[0],wed[0],thu[0],fri[0],sat[0],sun[0]],
+                              backgroundColor: [
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)',
+                                'rgba(200, 0, 255, 0.5)'
+                              ],
+                            }, {
+                              label: '2021년 2분기',
+                              data: [mon[1], tue[1],wed[1],thu[1],fri[1],sat[1],sun[1]],
+                              backgroundColor: [
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)',
+                                'rgba(100, 0, 255, 0.5)'
+
+                              ],
+                            }, {
+                              label: '2021년 3분기',
+                              data: [mon[2], tue[2],wed[2],thu[2],fri[2],sat[2],sun[2]],
+                              backgroundColor: [
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)',
+                                'rgba(0, 0, 255, 0.5)'
+
+                              ],
+                            }]
+                          },
+                        })
+
+                })
+                $('#time').on('click',function(){
+                    $("#showChart").remove();
+                    $("#chart").append("<canvas id='showChart'></canvas>");
+                    var ctx5 = document.getElementById("showChart");
+                    var myChart = new Chart(ctx5, {
+                      type: 'bar',
+                      data: {
+                        labels: ["0시~6시", "6시~11시","11시~14시","14시~17시","17시~21시","21시~24시"],
+                        datasets: [{
+                          label: '2020년 4분기',
+                          data: [t1[3], t2[3], t3[3], t4[3], t5[3], t6[3]],
+                          backgroundColor: [
+                            'rgba(0, 255, 0, 0.5)',
+                            'rgba(0, 255, 0, 0.5)',
+                            'rgba(0, 255, 0, 0.5)',
+                            'rgba(0, 255, 0, 0.5)',
+                            'rgba(0, 255, 0, 0.5)',
+                            'rgba(0, 255, 0, 0.5)',
+                          ],
+                        }, {
+                          label: '2021년 1분기',
+                          data: [t1[0], t2[0], t3[0], t4[0], t5[0], t6[0]],
+                          backgroundColor: [
+                            'rgba(0, 200, 0, 0.5)',
+                            'rgba(0, 200, 0, 0.5)',
+                            'rgba(0, 200, 0, 0.5)',
+                            'rgba(0, 200, 0, 0.5)',
+                            'rgba(0, 200, 0, 0.5)',
+                            'rgba(0, 200, 0, 0.5)',
+                          ],
+                        }, {
+                          label: '2021년 2분기',
+                          data: [t1[1], t2[1], t3[1], t4[1], t5[1], t6[1]],
+                          backgroundColor: [
+                            'rgba(0, 150, 0, 0.5)',
+                            'rgba(0, 150, 0, 0.5)',
+                            'rgba(0, 150, 0, 0.5)',
+                            'rgba(0, 150, 0, 0.5)',
+                            'rgba(0, 150, 0, 0.5)',
+                            'rgba(0, 150, 0, 0.5)',
+                          ],
+                        }, {
+                          label: '2021년 3분기',
+                          data: [t1[2], t2[2], t3[2], t4[2], t5[2], t6[2]],
+                          backgroundColor: [
+                            'rgba(0, 100, 0, 0.5)',
+                            'rgba(0, 100, 0, 0.5)',
+                            'rgba(0, 100, 0, 0.5)',
+                            'rgba(0, 100, 0, 0.5)',
+                            'rgba(0, 100, 0, 0.5)',
+                            'rgba(0, 100, 0, 0.5)',
+                          ],
+                        }]
+                      },
+                    })
+                })
+
+                $('#sex').on('click',function(){
+                    $("#showChart").remove();
+                    $("#chart").append("<canvas id='showChart'></canvas>");
+                    var ctx2 = document.getElementById("showChart");
+                    var myChart = new Chart(ctx2, {
+                      type: 'pie',
+                      data: {
+                        labels: ["남성 매출 비율%", "여성 매출 비율%"],
+                        datasets: [{
+                          label: ' 성별 매출 비율',
+                          data: [m, f],
+                          backgroundColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                          ],
+                        }]
+                      },
+                    })
+                })
+                $('#jumposu').on('click',function(){
+                $("#showChart").remove();
+                $("#chart").append("<canvas id='showChart'></canvas>");
+                var ctx6 = document.getElementById("showChart");
+                var myChart = new Chart(ctx6, {
+                  type: 'line',
+                  data: {
+                    labels: ['2020년 4분기','2021년 1분기','2021년 2분기','2021년 3분기' ],
+                    datasets: [{
+                      label: '분기별점포수 변동',
+                      data: [jumpo[3],jumpo[0],jumpo[1],jumpo[2]],
+                      borderColor: 'rgb(75, 192, 192)',
+                        }]
+                      }
+                    })
+                })
+
+          }
+          ,error:function(){
+            alert('현재 입력하신 상권에는 찾는 업종이 없습니다. 선발대가 되보실래요?');
+          }
+        })
+      });
+      $("#another").on('click',function () {
+            var form = $('#form');
+            $('#gu').val()
+            form.submit();
+      })
+      
+      $("#guselect").change(function() {
+        var wheregu = $("#guselect").val()
+        $('#wheregu').attr('value',wheregu);
+        alert(wheregu)
+        $.ajax({
+            url:'/guSang/',
+            data : {'gu':wheregu},
+            dataType:"json",
+            success: function(msg) {
+                // $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                // $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text(wheresk));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+                $('#sangcon').change(function(){
+                  var wheresk=$(this).val()
+                  alert(wheresk)
+                  $('#wheresk').attr('value',wheresk); 
+                })
+                }
+      })})
+    
+      
+      $("#check").on("click", function(){
+        window.open("", "showlist.html", "width=500, height=300, scrollbars=no");
+        $("#frm").submit();
+      });
+
+    })
+
+    function setChildValue(name){
+        document.getElementById('whatStore').value=name;
+    }
+    
+    
+    
+   </script>
+   
+
+</head>
+<body>
+    <header>
+        <div id="DS">
+            <select id="guselect">
+              {% for i in guList %}
+                <option id='guname' value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        
+        <input type="text" id='whatStore' readonly="readonly"/>
+        <input type="button" value="업종 선택" id="check"/>
+        <input type="button" value="  조 회  " id="gogo">
+        <div id="yourfind">
+            <span id="writeplace"></span>
+        </div>
+        <div id="yourfind2">
+          <span id="writeplace2"></span>
+        </div>
+    </header>
+    <main>
+        <div id="age">
+          <img src="{% static 'img/age.png' %}" width="250px" height="110px">
+        </div>
+        <div id="week">
+          <img src="{% static 'img/week.png' %}" width="250px" height="110px">
+        </div>
+        <div id="time">
+          <img src="{% static 'img/time.png' %}" width="250px" height="110px">
+        </div>
+        <div id="sex">
+          <img src="{% static 'img/sex.png' %}" width="250px" height="110px">
+        </div>
+        <div id="jumposu">
+            <img src="{% static 'img/jumpo.png' %}" width="250px" height="110px">
+        </div>
+
+        <div id="chart">
+            <canvas id="showChart"></canvas>
+        </div>
+    </main>    
+    
+    <!--돌아가기-->
+    <!-- <form action="/request/" id="form" name="form" method="post">{% csrf_token %}
+        <input type="text" name="gu" id="gu" style="display: none;">
+        <input type="button" id="another" value="인구 페이지도 볼래?">
+    </form> -->
+    <form id="frm" name="frm" method="post" action="/showlist/" target="showlist.html">{% csrf_token %}
+      <input type="text" id='wheregu' name='wheregu' value='' style="display:none">
+      <input type="text" id='wheresk' name='wheresk' value='' style="display:none">
+    </form>
+</body>
+</html>

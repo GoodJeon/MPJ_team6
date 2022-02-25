@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
-
 /* 배민 한나프로체 */
 @font-face{
     font-family: 'Baemin';
@@ -42,14 +40,12 @@ body{
     height:100%;
 }
 
-
 header{
     text-align: center;
     width:100%;
     height:12%;
     background-color: black;
     color: #ffffff;
-    
 }
 
 h1{
@@ -60,9 +56,10 @@ h1{
 main{
     width:100%;
     height: 81%;
-    text-align: center;
+    text-align: center;    
+    background-color: whitesmoke;
 }
-    
+
 footer{
     font-family: 'Goyang';
     width: 100%;
@@ -78,39 +75,22 @@ footer > span{
     vertical-align: middle;
 }
 
-.m-bt1{
-    width: 50%;
-    float: left;
-}
-.m-bt2{
-    width: 50%;
-    float: right;
-}
-.p-bt1{
-    width: 60%;
-    height: 60%;
-    float:right;
-    /* border: 1px solid black; */
-    margin-top: 12%;
-}
-.p-bt2{
-    width: 60%;
-    height: 60%;
-    float: left;
-    /* border: 1px solid black; */
-    margin-top: 12%;
-}
-.image{
-    width:100%;
-    height:100%;
-}
-.image img{
+
+.locName{
     width: 100%;
-    height: 300px;
-}
-.txt{
-    /* height:70px; */
-    font-size: larger;
+    height: 73px;
     text-align: center;
+    font-size: 60px;
 }
 
+.mapArea{
+    margin-left: 10%;
+    margin-right: 10%;
+    height:100%;
+}
+#paper{
+    margin-left: 25%;
+    width: 50%;
+    height: 100%;
+    
+}

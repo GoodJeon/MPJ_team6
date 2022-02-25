@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+html{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family: 'GodoM';
+    width:100%;
+    height:100%;
+}
+
+
+header{
+    width:100%;
+    height:12%;
+    background-color: black;
+    color: #ffffff;
+}
+h1{
+    font-size: 40px;
+    line-height: 70px;
+}
+
+.head1{
+    float: left;
+}
+.head2{
+    float: right;
+}
+
+main{
+    background-color: #f5f5f5;
+    width:100%;
+    height: 81%;
+    text-align: center;
+}
+footer{
+    font-family: 'Goyang';
+    width: 100%;
+    height:7%;
+    text-align: center;
+    background-color: #e3dfd7;
+    display:table;
+    font-size: large;
+}
+
+footer > span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+
+.lf{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid; */
+    
+    
+
+}
+
+
+.left{
+    width: 40%;
+    height: 100%;
+    float:left;
+    /* box-sizing: border-box; */
+    
+}
+
+.right{
+    width: 60%;
+    height: 100%;
+    float: right;
+    /* box-sizing: border-box; */
+    
+    
+}
+
+
+.left > div{
+    width: 100%;
+    height: 50%;
+    /* height: 50%; */
+    /* float:left; */
+
+}
+
+.right > div{
+    /* width: 100%; */
+    /* height: 190px; */
+    /* float:right; */
+    /* border: 1px solid; */
+}
+
+.popul{
+    border-right: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+}
+.sex{
+    width: 100%;
+    border-right: 1px solid #999999;
+    display: none;
+}
+.sex_title{
+    width:100%;
+    height:10%;
+}
+
+.sex_content{
+    width:100%;
+    height:90%;
+}
+.male{
+    width:50%;
+    height: 100%;
+    /* box-sizing: border-box; */
+    float: left;
+}
+
+.female{
+    width:50%;
+    height:100%;
+    /* box-sizing: border-box; */
+    float: right;
+}
+
+.m_left{
+    width:40%;
+    height:100%;
+    /* box-sizing: border-box; */
+    float: left;
+}
+.f_left{
+    width:60%;
+    height:100%;
+    /* box-sizing: border-box; */
+    float:left;
+}
+
+.m_right{
+    width:60%;
+    height:100%;
+    /* box-sizing: border-box; */
+    float:left;
+}
+.f_right{
+    width:40%;
+    height:100%;
+    /* box-sizing: border-box; */
+    float: left;
+}
+
+span{
+    display: block;
+}
+
+

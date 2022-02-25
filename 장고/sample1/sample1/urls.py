@@ -1,7 +1,7 @@
-"""myweb URL Configuration
+"""test1 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -13,13 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from unicodedata import name
 from django.contrib import admin
 from django.urls import path
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('selectgu', views.selectgu, name='selectgu'),
-    path('request/', views.get_post),
+    path('', views.title),
+    path('gu/', views.gu,name='param'),
+    path('gu/sangkwon/', views.sangkwon),
+    path('gu/sangkwon/pop_info/', views.pop_info),
+    path('storepage/',views.storepage,name='storepage'),
+    path('guSang/',views.guSang),
+    path('showlist/',views.showlist),
+    path('comeTodata/',views.comeTodata),
 ]

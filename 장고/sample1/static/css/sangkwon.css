@@ -1,0 +1,150 @@
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+html{
+    width:100%;
+    height:100%;
+}
+
+
+body{
+    font-family: 'GodoM';
+    width:100%;
+    height:100%;
+}
+
+header{
+    text-align: center;
+    width:100%;
+    height:12%;
+    background-color: black;
+    color: #ffffff;
+    
+}
+
+h1{
+    font-size: 40px;
+    line-height: 70px;
+}
+
+
+main{
+    width:100%;
+    height: 81%;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+footer{
+    font-family: 'Goyang';
+    width: 100%;
+    height:7%;
+    text-align: center;
+    background-color: #e3dfd7;
+    display:table;
+    font-size: large;
+}
+
+footer > span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.chart{
+    height: 500px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+table{
+    /* border: 1px solid #bcbcbc; */
+    width: 100%;
+    height: 100%;
+}
+
+/* td{
+    border: 1px solid #bcbcbc;
+    text-align: center;
+    border-radius: 50%;
+} */
+
+
+/*
+td css 부트스트랩 적용 부분
+*/
+
+@keyframes ring {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+.w-btn-neon2 {
+    position: relative;
+    border: none;
+    min-width: 100px;
+    min-height: 25px;
+    background: linear-gradient(
+        90deg,
+        rgba(210, 210, 210, 0.6) 0%,
+        rgba(180, 180, 180, 0.64) 100%
+    );
+    border-radius: 1000px;
+    color: black;
+    cursor: pointer;
+    box-shadow: 12px 12px 24px rgba(100, 100, 100, 0.4);
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.w-btn-neon2:hover {
+    transform: scale(1.4);
+    z-index: 10;
+}
+
+.w-btn-neon2:hover::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 6px solid #000000;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+}
