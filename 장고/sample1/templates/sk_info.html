@@ -16,10 +16,14 @@
     $( document ).ready(function() {
       $("#guselect").val("{{wheregu}}").attr("selected", "selected")
       var wheregu = $("#guselect").val()
+      var wheregu2 = $("#guselect").val()
       $('#wheregu').attr('value',wheregu);
+      $('#wheregu2').attr('value',wheregu2);
       
       
-
+      // 조회 버튼 비활성화
+      $('#gogo').attr('disabled','disabled');
+    
       
 
       $.ajax({
@@ -27,11 +31,11 @@
             data : {'gu':$("#guselect option:selected").val()},
             dataType:"json",
             success: function(msg) {
-                // $('#sangcon').remove();
+                $('#sangcon').remove();
                 var obj = JSON.parse(msg)
                 var sang = obj.sangG
                 console.log(sang)
-                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(wheresk).text(wheresk));
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text(wheresk));
                 for(var i=0; i< sang.length; i++){
                     console.log(sang[1])
                     $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
@@ -39,11 +43,14 @@
                 $("#DS").append($sangcon);
                 $("#sangcon").val("{{wheresk}}").attr("selected", "selected")
                 var wheresk = $("#sangcon").val()
+                var wheresk2 = $("#sangcon").val()
                 $('#wheresk').attr('value',wheresk);
+                $('#wheresk2').attr('value',wheresk2);
                 $('#sangcon').change(function(){
                   var wheresk=$(this).val()
-                  alert(wheresk)
-                  $('#wheresk').attr('value',wheresk); 
+                  // alert(wheresk)
+                  $('#wheresk').attr('value',wheresk);
+                  $('#wheresk2').attr('value',wheresk2); 
                 })
             }
         })
@@ -55,7 +62,7 @@
     $(function (){
       $('div > img').css('display', 'none');
       $('div > img').fadeIn(1000);
-      $(":button").css({"background-color": "yellow","border":"1px solid #B9eeff","border-radius":"5px"});
+      $(":button").css({"background-color": "black","color":'white',"border":"1px solid gray","border-radius":"5px"});
 
       // 
       $("#guselect").change(function() {
@@ -76,11 +83,14 @@
                 };
                 $("#DS").append($sangcon);
                 var wheregu = $("#guselect").val()
+                var wheregu2 = $("#guselect").val()
                 
             }
         });
       });
 
+      
+      
       $('#gogo').on('click', function() {
         $.ajax({
           url: '/comeTodata/',
@@ -118,10 +128,14 @@
                 var t5 = obj.t5
                 var t6 = obj.t6
                 var jumpo = obj.jumpo
-                $('#writeplace').html(gu+' '+sang+' '+gage)
-                $('#writeplace2').html('해당 상권은')
+                $('#writeplace').html('🔎'+gu+' '+sang)
+                $('#showingstore').show()
+                $('#writehere').html(gage)
                 $('#gu').val(gu)
                 var wheresk = $("#sangcon").val()
+                var wheresk2 = $("#sangcon").val()
+                var wheregg2 = $("#whatStore").val()
+                $('#wheregg2').attr('value',wheregg2);
                 
 
 
@@ -342,7 +356,7 @@
 
           }
           ,error:function(){
-            alert('현재 입력하신 상권에는 찾는 업종이 없습니다. 선발대가 되보실래요?');
+            alert('현재 상권에는 선택하신 업종이 없습니다. 도전해보시는건 어떠세요?');
           }
         })
       });
@@ -354,14 +368,16 @@
       
       $("#guselect").change(function() {
         var wheregu = $("#guselect").val()
+        var wheregu2 = $("#guselect").val()
         $('#wheregu').attr('value',wheregu);
-        alert(wheregu)
+        $('#wheregu2').attr('value',wheregu2);
+        // alert(wheregu)
         $.ajax({
             url:'/guSang/',
             data : {'gu':wheregu},
             dataType:"json",
             success: function(msg) {
-                // $('#sangcon').remove();
+                $('#sangcon').remove();
                 var obj = JSON.parse(msg)
                 var sang = obj.sangG
                 console.log(sang)
@@ -373,72 +389,113 @@
                 $("#DS").append($sangcon);
                 $('#sangcon').change(function(){
                   var wheresk=$(this).val()
-                  alert(wheresk)
-                  $('#wheresk').attr('value',wheresk); 
+                  var wheresk2=$(this).val()
+                  // alert(wheresk) 
+                  $('#wheresk').attr('value',wheresk);
+                  $('#wheresk2').attr('value',wheresk2); 
                 })
                 }
       })})
     
       
       $("#check").on("click", function(){
-        window.open("", "showlist.html", "width=500, height=300, scrollbars=no");
+        window.open("", "showlist.html", "width=600, height=350, scrollbars=no");
         $("#frm").submit();
       });
 
     })
 
+    
     function setChildValue(name){
         document.getElementById('whatStore').value=name;
+        // 업종 선택 후 text에 값이 생기면 활성화
+        $('#gogo').removeAttr('disabled')
+    }
+
+    // 삼각형 눌렀을 때 삼각지표
+    function clickTri(){
+      window.open('','triangle.html', 'width=600, height=350, scrollbars=no ')
+      $('#tri').submit();
     }
     
-    
-    
-   </script>
-   
+
+  </script>
+
 
 </head>
 <body>
-    <header>
-        <div id="DS">
-            <select id="guselect">
-              {% for i in guList %}
-                <option id='guname' value="{{i}}">{{i}}</option>
-              {% endfor %}
-            </select>
+  <header>
+      <h1 id="writeplace">🎯업종을 선택해주세요🎯</h1>
+      <a class="home" href="/">
+        <img src="{% static 'img/집2.png' %}" width = '70px' height="70px" style="display: inline;">
+      </a>
+  </header>
+  <main>
+    <form>
+      <div class="main1">
+        <div class="main1-1">
+          <div class="main1-1-1">
+            <div id="DS">
+              <select id="guselect">
+                {% for i in guList %}
+                  <option id='guname' value="{{i}}">{{i}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="main1-1-2">
+            <input type="text" id='whatStore' readonly="readonly"/>
+            <input type="button" value="업종 선택" id="check"/>
+          </div>
+          <div class="main1-1-3">
+            
+            <input type="button" value="  조 회  " id="gogo">
+          </div>
         </div>
-        
-        <input type="text" id='whatStore' readonly="readonly"/>
-        <input type="button" value="업종 선택" id="check"/>
-        <input type="button" value="  조 회  " id="gogo">
-        <div id="yourfind">
-            <span id="writeplace"></span>
+        <div class="main1-2">
+          <div id="showingstore">
+            <span id="writehere"></span>
+          </div>
         </div>
-        <div id="yourfind2">
-          <span id="writeplace2"></span>
+        <div class="main1-3">
+          <div class="main1-3-1">
+            <img id="pointerRight" src="{% static 'img/손가락우.png' %}" width = '70px' height="70px" >
+          </div>
+          <div class="main1-3-2">
+            <img id="triImg" src="{% static 'img/triangle.png' %}" width = '70px' height="70px" onclick="clickTri()" >
+          </div>
         </div>
-    </header>
-    <main>
-        <div id="age">
-          <img src="{% static 'img/age.png' %}" width="250px" height="110px">
-        </div>
-        <div id="week">
-          <img src="{% static 'img/week.png' %}" width="250px" height="110px">
-        </div>
-        <div id="time">
-          <img src="{% static 'img/time.png' %}" width="250px" height="110px">
-        </div>
-        <div id="sex">
-          <img src="{% static 'img/sex.png' %}" width="250px" height="110px">
-        </div>
-        <div id="jumposu">
-            <img src="{% static 'img/jumpo.png' %}" width="250px" height="110px">
-        </div>
+      </div>
 
-        <div id="chart">
-            <canvas id="showChart"></canvas>
+      <div class="main2">
+        <div class="main2-1">
+          <div id="age">
+            <img src="{% static 'img/age.png' %}" width="180px" height="70px">
+          </div>
+          <div id="week">
+            <img src="{% static 'img/week.png' %}" width="180px" height="70px">
+          </div>
+          <div id="time">
+            <img src="{% static 'img/time.png' %}" width="180px" height="70px">
+          </div>
+          <div id="sex">
+            <img src="{% static 'img/sex.png' %}" width="180px" height="70px">
+          </div>
+          <div id="jumposu">
+              <img src="{% static 'img/jumpo.png' %}" width="180px" height="70px">
+          </div>
         </div>
-    </main>    
-    
+        <div class="main2-2">
+          <div id="chart">
+            <canvas id="showChart"></canvas>
+          </div>
+        </div>
+        <div class="main2-3"></div>
+        
+
+        
+      </div>
+    </form>
     <!--돌아가기-->
     <!-- <form action="/request/" id="form" name="form" method="post">{% csrf_token %}
         <input type="text" name="gu" id="gu" style="display: none;">
@@ -448,5 +505,32 @@
       <input type="text" id='wheregu' name='wheregu' value='' style="display:none">
       <input type="text" id='wheresk' name='wheresk' value='' style="display:none">
     </form>
+
+    <!--삼각지표로 보낼 데이터 폼-->
+    <form id="tri" name="tri" method="post" action="/triangle/" target="triangle.html">{% csrf_token %}
+      <input type="text" id='wheregu2' name='wheregu2' value='' style="display:none">
+      <input type="text" id='wheresk2' name='wheresk2' value='' style="display:none">
+      <input type="text" id='wheregg2' name='wheregg2' value='' style="display:none">
+    </form>
+  </main>
+
+  
+
+    <footer>
+      <span>
+        <b>
+        Copyright ⓒ 2022. OB상조 All rights reserved  
+        </b>
+      </span>
+      <span>
+        <b>Designed by 김화신 이성길 이종호 전동준 조완제 </b>
+      </span>
+      <span>
+        <b>
+          Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+        </b> 
+      </span>
+      
+    </footer>
 </body>
 </html>

@@ -61,6 +61,7 @@ main{
     width:100%;
     height: 81%;
     text-align: center;
+    background-color: whitesmoke;
 }
     
 footer{
@@ -91,14 +92,14 @@ footer > span{
     height: 60%;
     float:right;
     /* border: 1px solid black; */
-    margin-top: 12%;
+    margin-top: 5%;
 }
 .p-bt2{
     width: 60%;
     height: 60%;
     float: left;
     /* border: 1px solid black; */
-    margin-top: 12%;
+    margin-top: 5%;
 }
 .image{
     width:100%;
@@ -106,11 +107,26 @@ footer > span{
 }
 .image img{
     width: 100%;
-    height: 300px;
+    height: 100%;
+    -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate; 
+    animation:blink 1.5s ease-in-out infinite alternate;
 }
 .txt{
     /* height:70px; */
     font-size: larger;
     text-align: center;
+}
+
+/* 그림 반짝이는 효과 */
+@-webkit-keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
+} 
+
+@-moz-keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
+} 
+@keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
 }
 

@@ -28,4 +28,5 @@ urlpatterns = [
     path('guSang/',views.guSang),
     path('showlist/',views.showlist),
     path('comeTodata/',views.comeTodata),
+    path('triangle/', views.triangle),
 ]

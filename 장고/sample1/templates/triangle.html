@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/triangle.css' %}" type="text/css">
+</head>
+
+
+<body>
+    <div class="radar">
+        <canvas class="radarChart" id="radarChart"></canvas>
+    </div>
+</body>
+
+
+
+<script>
+    $(document).ready(function(){
+
+        // 변수지정
+        a0 = parseInt('{{ a0 }}')
+        a1 = parseInt('{{ a1 }}')
+        b0 = parseInt('{{ b0 }}')
+        b1 = parseInt('{{ b1 }}')
+        c0 = parseInt('{{ c0 }}')
+        c1 = parseInt('{{ c1 }}')
+
+
+        // 차트 그릴 영역 가져오귀
+        var marksCanvas = document.getElementById("radarChart"); 
+        
+        // 데이터
+        var marksData={
+        labels: ["매출액","생활인구","매출변동성"],
+        datasets: [{
+                    label: '서울시 평균',
+                    data: [ a0, b0, c0 ],
+                    backgroundColor: "rgba(0,0,255,0.2)",
+            fill : true,
+            radius : 4,
+            pointRadius : 6,
+            pointBorderWidth: 2,
+            pointBackgroundColor: "skyblue",
+            pointBorderColor: "rgba(0,0,255,0.5)",
+            pointHoverRadius: 10,
+                    },{
+                    label: '{{wheregu}} {{wheresk}} {{wheregg}}',
+                    data: [ a1, b1, c1 ],
+                    backgroundColor: "rgba(255,0,0, 0.7)",
+            fill : true,
+            radius : 4,
+            pointRadius : 6,
+            pointBorderWidth: 2,
+            pointBackgroundColor: "orange",
+            pointBorderColor: "rgba(255,0,0, 0.5)",
+            pointHoverRadius: 10,
+        }] // 데이터셋 닫는 괄호
+        }
+        
+        // 옵션
+        var chartOptions = {
+        scale:{
+            girdLines: {
+                color: "gray",
+                lineWidth: 1
+            },ticks:{
+                beginAtZero: true,
+                min: 0,
+                max: 5,
+                stepSize: 1
+            },
+            
+        },
+        legend:{
+            position: 'left'    
+        }
+        };
+
+        // 차트 생성
+        var radarChart = new Chart(marksCanvas, {
+        type : 'radar',
+        data: marksData,
+        options: chartOptions
+
+        })
+                })
+    
+</script>
+</html>

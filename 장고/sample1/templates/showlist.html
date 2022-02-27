@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var list = [
                     ['커피-음료', '슈퍼마켓', 'PC방', '스포츠클럽', '패스트푸드점', '노래방', '안경', '스포츠 강습','핸드폰', '한의원'],
@@ -28,7 +29,8 @@
                     var val = list[i][j]
                     var td =document.createElement('td');
                     if (svlist.indexOf(val) == '-1'){
-                        td.style.backgroundColor='#900'
+                        td.style.backgroundColor='gray'
+                        td.style.color='black'
                     } else{
                         td.setAttribute('onmouseover','this.style.cursor="pointer"');
                     }
@@ -39,17 +41,20 @@
                     td.innerHTML = list[i][j];
                 }
             }
+            $( 'table' ).addClass( 'table table-bordered' );
+
         }
         function sendChildValue(name) {
             opener.setChildValue(name);
             window.close();
         }
 
-
     </script>
 </head>
 <body>
     <div id="here"></div>
-
+    <div class="describe">
+        * 참고 : 회색 박스는 해당 상권에 <b>존재하지 않는 업종</b>들을 뜻합니다.
+    </div>
 </body>
 </html>

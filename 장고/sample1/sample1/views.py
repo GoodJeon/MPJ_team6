@@ -23,6 +23,9 @@ income_18=pd.read_csv(PATH+'/서울시 우리마을가게 상권분석서비스(
 where=pd.read_csv(PATH+'/서울시 우리마을가게 상권분석서비스(상권영역).csv',encoding='cp949')
 gu_code=pd.read_csv(PATH+'/행정동코드_매핑정보_2018.csv')
 moneymoney=pd.read_csv(PATH+'/moneypower.csv')
+x_du = pd.read_csv(PATH+'/x_du.csv')
+y_du = pd.read_csv(PATH+'/y_du.csv')
+rates = pd.read_csv(PATH+'/rates.csv')
 
 
 '''생활 인구 데이터 전처리'''
@@ -99,8 +102,8 @@ def pop_info(request):
         female = (tmp['여성_생활인구_수'].sum())
         m = int(male)
         f = int(female)
-        mPer = round(m/(m+f) * 100)
-        fPer = round(f/(m+f) * 100)
+        mPer = round(m/(m+f) * 100,1)
+        fPer = round(f/(m+f) * 100,1)
 
         # 분기 별, 요일별 총 생활인구 수
         mon = tmp['월요일_생활인구_수'].groupby(tmp['기준_분기_코드']).sum().values
@@ -228,3 +231,139 @@ def comeTodata(request):
     result = {'gu': gu,'sang':sang,'gage':gage, 'm': mPer, 'f': fPer,'mon': mon, 'tue': tue, 'wed': wed, 'thu': thu, 'fri': fri, 'sat': sat, 'sun': sun,'age10': age10, 'age20': age20, 'age30': age30, 'age40': age40, 'age50': age50, 'age60': age60,'t1': t1, 't2': t2, 't3': t3, 't4': t4, 't5': t5, 't6': t6, 'jumpo':jumpo}
     result =(json.dumps(result, cls=NumpyEncoder, indent=4, ensure_ascii=False))
     return JsonResponse(result,safe=False)
+
+
+# 삼각지표(레이더차트)
+def triangle(request):
+    if request.method=='POST':
+        wheregu=request.POST['wheregu2']
+        wheresk=request.POST['wheresk2']
+        wheregg=request.POST['wheregg2']
+
+        def earned(gu,sk,sv):
+            srv_sales = x_du['매출/점포수'][x_du['서비스_업종_코드_명']== sv]
+            div=len(x_du['상권_코드_명'][x_du['서비스_업종_코드_명']== sv].unique())
+            
+            # 해당 업종 서울 평균 매출액
+            seoul=x_du['매출/점포수'][x_du['서비스_업종_코드_명']== sv].sum()/(div)
+            
+            # 내가 고른 상권 업종 평균 매출액
+            my=x_du['매출/점포수'][(x_du['시군구_명']==gu)&(x_du['상권_코드_명']==sk)&(x_du['서비스_업종_코드_명']==sv)].sum()
+            score=[]
+            
+            
+            if seoul >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif seoul >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif seoul >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif seoul >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+                
+            if my >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif my >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif my >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif my >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+            return score
+        
+
+        
+        # 생활인구
+
+        def population(gu,sk,sv):
+            srv_sales = sp_recent['총_생활인구_수']
+            div=len(sp_recent['상권_코드_명'].unique())
+            
+            # 서울 평균 생활인구
+            seoul=sp_recent['총_생활인구_수'].sum()/(div)
+            
+            # 내가 고른 상권 평균 생활 인구
+            my=sp_recent['총_생활인구_수'][(sp_recent['시군구_명']==gu)&(sp_recent['상권_코드_명']==sk)].sum()
+            score=[]
+            
+            
+            if seoul >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif seoul >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif seoul >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif seoul >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+                
+            if my >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif my >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif my >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif my >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+            return score
+
+
+        # 증감률
+
+        def earnedrates(gu,sk,sv):
+            srv_sales = rates['증감률'][rates['서비스_업종_코드_명']== sv]
+            div=len(rates['상권_코드_명'][rates['서비스_업종_코드_명']== sv].unique())
+            
+            # 내가 고른 상권 업종 평균 비율
+            my = rates['증감률'][(rates['시군구_명']==gu)&(rates['상권_코드_명']==sk)&(rates['서비스_업종_코드_명']==sv)].values[0]
+            
+            # 해당 업종 서울 평균 매출액
+            seoul=srv_sales.sum()/div
+                
+            score=[]
+            
+            if seoul >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif seoul >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif seoul >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif seoul >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+                
+            if my >= srv_sales.quantile(0.8):
+                score.append(5)
+            elif my >= srv_sales.quantile(0.6):
+                score.append(4)
+            elif my >= srv_sales.quantile(0.4):
+                score.append(3)
+            elif my >= srv_sales.quantile(0.2):
+                score.append(2)
+            else:
+                score.append(1)
+                
+            return score
+
+
+        a = earned(wheregu, wheresk, wheregg)
+        b = population(wheregu, wheresk, wheregg)
+        c = earnedrates(wheregu, wheresk, wheregg)
+
+        print(a)
+        print(b)
+        print(c)
+        
+    # 0이 서울, 1이 선택한 상권(업종)
+    # a는 매출액 비교, b는 생활인구 비교, c는 매출증감률 비교  
+    return render(request,'triangle.html', {
+        'wheregu':wheregu, 'wheresk':wheresk, 'wheregg':wheregg,
+        'a0':a[0],'a1':a[1],'b0':b[0],'b1':b[1], 'c0':c[0], 'c1':c[1]})

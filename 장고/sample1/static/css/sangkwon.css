@@ -148,3 +148,7 @@ td css 부트스트랩 적용 부분
     transform: translate(-50%, -50%);
     animation: ring 1.5s infinite;
 }
+
+.sangkwontb{
+    empty-cells: hide;
+}

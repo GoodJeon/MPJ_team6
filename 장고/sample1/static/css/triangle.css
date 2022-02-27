@@ -1,0 +1,41 @@
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+*{
+    margin:0;
+    padding:0;
+}
+
+html{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family: 'GodoM';
+    width:100%;
+    height:100%;
+}

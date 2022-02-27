@@ -51,6 +51,7 @@ header{
     background-color: black;
     color: #ffffff;
 }
+
 h1{
     font-size: 40px;
     line-height: 70px;
@@ -69,6 +70,7 @@ main{
     height: 81%;
     text-align: center;
 }
+
 footer{
     font-family: 'Goyang';
     width: 100%;
@@ -172,6 +174,9 @@ footer > span{
     height:100%;
     /* box-sizing: border-box; */
     float:left;
+    -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate; 
+    animation:blink 1.5s ease-in-out infinite alternate;
 }
 
 .m_right{
@@ -179,6 +184,9 @@ footer > span{
     height:100%;
     /* box-sizing: border-box; */
     float:left;
+    -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate; 
+    animation:blink 1.5s ease-in-out infinite alternate;
 }
 .f_right{
     width:40%;
@@ -192,3 +200,14 @@ span{
 }
 
 
+/* 그림 반짝이는 효과 */
+@-webkit-keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
+} 
+
+@-moz-keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
+} 
+@keyframes blink{ 
+    0% {opacity:0;} 100% {opacity:1;} 
+}
