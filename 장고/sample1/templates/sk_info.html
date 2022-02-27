@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>OB상조 | {{wheresk}} 매출 정보</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/sk_info.css' %}" type="text/css">
+    <link rel="shortcut icon" href="{% static 'img/ob파비콘.ico' %}">
     <script>
 
 
@@ -24,7 +25,6 @@
       // 조회 버튼 비활성화
       $('#gogo').attr('disabled','disabled');
     
-      
 
       $.ajax({
             url:'/guSang/',
@@ -128,6 +128,11 @@
                 var t5 = obj.t5
                 var t6 = obj.t6
                 var jumpo = obj.jumpo
+                var top1 = obj.top1
+                var top2 = obj.top2
+                var top3 = obj.top3
+                var top4 = obj.top4
+                var top5 = obj.top5
                 $('#writeplace').html('🔎'+gu+' '+sang)
                 $('#showingstore').show()
                 $('#writehere').html(gage)
@@ -137,7 +142,18 @@
                 var wheregg2 = $("#whatStore").val()
                 $('#wheregg2').attr('value',wheregg2);
                 
+                // top5 값 주기
+                $('.toptop').show()
+                $('.top1').html(top1)
+                $('.top2').html(top2)
+                $('.top3').html(top3)
+                $('.top4').html(top4)
+                $('.top5').html(top5)
+                
+                
+                
 
+            
 
                 $('#age').on('click',function(){
                     $("#showChart").remove();
@@ -459,9 +475,12 @@
         </div>
         <div class="main1-3">
           <div class="main1-3-1">
-            <img id="pointerRight" src="{% static 'img/손가락우.png' %}" width = '70px' height="70px" >
+            <span>업종 조회 후 클릭💡</span>
           </div>
           <div class="main1-3-2">
+            <img id="pointerRight" src="{% static 'img/손가락우.png' %}" width = '70px' height="70px" >
+          </div>
+          <div class="main1-3-3">
             <img id="triImg" src="{% static 'img/triangle.png' %}" width = '70px' height="70px" onclick="clickTri()" >
           </div>
         </div>
@@ -490,7 +509,31 @@
             <canvas id="showChart"></canvas>
           </div>
         </div>
-        <div class="main2-3"></div>
+        <div class="main2-3">
+          <article class="toptop"> 
+            <h2 clas="toplist">{{sang}} Top5 업종</h2>
+            <br>
+            <h3>1위</h3>
+            <br>
+            <h4 class="top1"></h4>
+            <br>
+            <h3>2위</h3>
+            <br>
+            <h4 class="top2"></h4>
+            <br>
+            <h3>3위</h3>
+            <br>
+            <h4 class="top3"></h4>
+            <br>
+            <h3>4위</h3>
+            <br>
+            <h4 class="top4"></h4>
+            <br>
+            <h3>5위</h3>
+            <br>
+            <h4 class="top5"></h4>
+          </article>
+        </div>
         
 
         

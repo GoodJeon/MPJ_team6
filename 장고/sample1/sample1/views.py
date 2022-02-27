@@ -226,9 +226,14 @@ def comeTodata(request):
     t5 = gud['시간대_17~21_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
     t6 = gud['시간대_21~24_매출_금액'].groupby(gud['기준_분기_코드']).sum().values
 
-
+    test1=x_du[(x_du['상권_코드_명']==sang)&(x_du['시군구_명']==gu)].sort_values(by='매출/점포수',ascending=False)
+    top5=test1[:5]['서비스_업종_코드_명'].values[:]
     print(jumpo)
-    result = {'gu': gu,'sang':sang,'gage':gage, 'm': mPer, 'f': fPer,'mon': mon, 'tue': tue, 'wed': wed, 'thu': thu, 'fri': fri, 'sat': sat, 'sun': sun,'age10': age10, 'age20': age20, 'age30': age30, 'age40': age40, 'age50': age50, 'age60': age60,'t1': t1, 't2': t2, 't3': t3, 't4': t4, 't5': t5, 't6': t6, 'jumpo':jumpo}
+    result = {'gu': gu,'sang':sang,'gage':gage, 'm': mPer, 'f': fPer,
+    'mon': mon, 'tue': tue, 'wed': wed, 'thu': thu, 'fri': fri, 'sat': sat, 'sun': sun,
+    'age10': age10, 'age20': age20, 'age30': age30, 'age40': age40, 'age50': age50, 'age60': age60,
+    't1': t1, 't2': t2, 't3': t3, 't4': t4, 't5': t5, 't6': t6, 'jumpo':jumpo,
+    'top1':top5[0],'top2':top5[1],'top3':top5[2],'top4':top5[3],'top5':top5[4]}
     result =(json.dumps(result, cls=NumpyEncoder, indent=4, ensure_ascii=False))
     return JsonResponse(result,safe=False)
 

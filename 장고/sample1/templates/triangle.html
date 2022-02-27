@@ -15,7 +15,7 @@
 
 <body>
     <div class="radar">
-        <canvas class="radarChart" id="radarChart"></canvas>
+        <canvas class="radarChart" id="radarChart" style="width:100vw; height:100vh;"></canvas>
     </div>
 </body>
 
@@ -38,7 +38,7 @@
         
         // 데이터
         var marksData={
-        labels: ["매출액","생활인구","매출변동성"],
+        labels: ["매출액","생활인구","성장가능성"],
         datasets: [{
                     label: '서울시 평균',
                     data: [ a0, b0, c0 ],
